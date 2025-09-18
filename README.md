@@ -27,7 +27,8 @@ Show how AI can:
 - Visual Studio Code (recommended).
 - GitHub Copilot extension in VS Code (optional — you can paste prompts manually).
 - `pytest` installed in your virtualenv.
-```pip install pytest
+```
+pip install pytest
 ```
 
 ---
@@ -40,6 +41,8 @@ Step 0 — Opening lines (0:00–0:30)
 
 Short definition:
 "A function is simply a block of code that performs a task—in this case, analyzing text."
+
+---
 
 # Step 1 — Generate the POOR implementation (2–3 min)
 
@@ -66,10 +69,13 @@ Add a short docstring saying it’s a poor implementation.
    - And for None, it returns avg_len as 0 instead of 0.0
 - This is how a poor implementation looks. It works, but it’s fragile and inconsistent. In real life, code like this can cause subtle bugs
 
+---
+
 # Step 2 - Refactor with Copilot
 
 ### Prompt 2:
-``` Refactor this function to be robust:
+```
+Refactor this function to be robust:
 - normalize to lowercase,
 - extract words using regex so punctuation doesn't attach to words,
 - ensure average word length is a float and rounded to 2 decimals,
@@ -86,10 +92,13 @@ Keep the function signature word_stats(text: str) -> dict.
   - And None or empty input safely return zeroes.
 - This is refactoring—making the same function behave correctly and more reliably, while the input-output meaning stays the same.
 
+---
+
 # Step 3: Generate Test Cases using copilot and validate
 
 ### Prompt 3:
-``` Generate pytest unit tests that cover:
+```
+Generate pytest unit tests that cover:
 A sentence with punctuation and repeated words (case differences),
 A case where average is non-integer (to catch integer division),
 Case-insensitive uniqueness,
@@ -103,15 +112,19 @@ Empty string and None
   - And safe handling of empty or None input.
 
 #### Run:
-``` pytest test_text_utils.py
+``` 
+pytest test_text_utils.py
 ```
 - All Pass
+
+--- 
 
 ## Introduce Bug
 - Now let’s deliberately introduce a tiny bug, just to see how tests react.
 
 ### BUG: using floor division and adding 0.1 to force incorrect avg for some inputs
-``` avg_len = round(total_len // len(words) + 0.1, 2) if words else 0.0
+```
+avg_len = round(total_len // len(words) + 0.1, 2) if words else 0.0
 ```
 
 - Logically, it looks harmless. Let’s see if our tests notice.
@@ -119,17 +132,22 @@ Empty string and None
 
 - That’s how even a tiny type mismatch is caught by tests immediately.
 - Finally, let’s fix the bug back  and rerun the tests.
-``` avg_len = round(total_len / len(words), 2) if words else 0.0
+```
+avg_len = round(total_len / len(words), 2) if words else 0.0
 ```
 
 ### BUG: accidentally decrement unique count by 1 when there are words
 
-``` unique = len(set(words)) - 1 if words else 0
+```
+unique = len(set(words)) - 1 if words else 0
 ```
 
 - Correct: 
-``` unique = len(set(words))
 ```
+unique = len(set(words))
+```
+
+---
 
 ## Conclusion
 So today we saw how Copilot can:
@@ -137,6 +155,8 @@ So today we saw how Copilot can:
 - Refactor it into robust code,
 - Generate tests to validate behavior,
 - And how tests instantly catch even tiny bugs.
+
+---
 
 That’s the power of AI-assisted development combined with testing.”
 
