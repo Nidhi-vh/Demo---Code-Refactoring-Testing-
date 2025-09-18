@@ -44,7 +44,8 @@ Short definition:
 # Step 1 — Generate the POOR implementation (2–3 min)
 
 ### Prompt 1:
-``` Write a deliberately poor Python function called `word_stats(text)` that returns a dictionary with keys:
+```
+Write a deliberately poor Python function called `word_stats(text)` that returns a dictionary with keys:
 - "words" = number of words,
 - "unique" = number of unique words,
 - "avg_len" = average word length.
@@ -57,6 +58,7 @@ But make it intentionally flawed:
 - If text is None, return {"words": 0, "unique": 0, "avg_len": 0}.
 Add a short docstring saying it’s a poor implementation.
 ```
+
 - This function counts words, unique words, and average word length. But it’s poorly written on purpose:
    - It only splits by spaces, so punctuation sticks to words.
    - It treats ‘Hello’ and ‘hello’ as different words.
